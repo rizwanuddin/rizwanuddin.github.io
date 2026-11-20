@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta property="og:title" content="Syed Rizwan Uddin · Software Engineer">
-<meta property="og:description" content="Syed Rizwan Uddin: software engineer building backend and AI systems. CS and Linguistics at San José State University, seeking Summer 2027 SWE internships.">
+<meta property="og:description" content="Syed Rizwan Uddin: software engineer building backend, AI and embedded systems. CS and Linguistics at San José State University, seeking 2027 SWE and embedded internships.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#0A1120">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23F2B33D'/%3E%3Ctext x='32' y='41' font-family='monospace' font-size='22' font-weight='700' text-anchor='middle' fill='%231B1304'%3ESRU%3C/text%3E%3C/svg%3E">
 <title>Syed Rizwan Uddin</title>
-<meta name="description" content="Syed Rizwan Uddin: software engineer building backend and AI systems. CS and Linguistics at San José State University, seeking Summer 2027 SWE internships.">
+<meta name="description" content="Syed Rizwan Uddin: software engineer building backend, AI and embedded systems. CS and Linguistics at San José State University, seeking 2027 SWE and embedded internships.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist:wght@400..600&family=Geist+Mono:wght@400..500&display=swap">
@@ -197,6 +197,23 @@ h3{font-family:var(--f-display);font-weight:680;font-size:clamp(1.85rem,3.4vw,2.
 .spot::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(380px circle at var(--mx,50%) var(--my,-30%),var(--accent-soft),transparent 60%);opacity:0;transition:opacity .35s}
 .spot:hover::after{opacity:1}
 .sim-canvas{display:block;width:100%;aspect-ratio:16/12}
+.sim-canvas.wide{aspect-ratio:16/9}
+
+/* drone telemetry */
+.tele{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
+.tele div{background:var(--surface);padding:10px 14px;display:grid;gap:2px;min-width:0}
+.tl{font-family:var(--f-mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tv{font-family:var(--f-mono);font-size:.95rem;font-weight:500;font-variant-numeric:tabular-nums;color:var(--fg);transition:color .3s}
+.tv.good{color:var(--bid)}.tv.bad{color:var(--ask)}.tv.warn{color:var(--accent-text)}
+@media (max-width:480px){.tele{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* overflow fallback ladder */
+.ladder{list-style:none;counter-reset:step;display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 16px;padding:0}
+.ladder li{counter-increment:step;display:inline-flex;align-items:center;gap:7px;padding:5px 10px 5px 6px;border-radius:8px;border:1px solid var(--line-strong);background:var(--bg-2);font-family:var(--f-mono);font-size:.74rem;color:var(--muted);transition:border-color .3s,background .3s,color .3s}
+.ladder li::before{content:counter(step);display:grid;place-items:center;width:18px;height:18px;border-radius:5px;background:var(--surface-2);color:var(--faint);font-size:.66rem;transition:background .3s,color .3s}
+.ladder li.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-text)}
+.ladder li.on::before{background:var(--accent);color:var(--accent-ink)}
+.ladder li.done{color:var(--faint)}
 
 /* order book */
 .ob{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:14px}
@@ -290,16 +307,17 @@ h3{font-family:var(--f-display);font-weight:680;font-size:clamp(1.85rem,3.4vw,2.
 .edu dl div{display:flex;justify-content:space-between;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
 .edu dt{font-family:var(--f-mono);font-size:.72rem;color:var(--faint);text-transform:uppercase;letter-spacing:.1em}
 .edu dd{margin:0;text-align:right;font-size:.9375rem}
-.edu .chips{margin:16px 0 0}
+.edu .chips{margin:0}
+.edu .chips + .label{margin-top:18px}
 
 /* skills */
-.skill-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.skill-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 @media (max-width:980px){.skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:540px){.skill-grid{grid-template-columns:minmax(0,1fr)}}
 .skill-group{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--bg-2)}
 .skill-group .label{margin-bottom:14px}
 .skill-chips{display:flex;flex-wrap:wrap;gap:7px}
-.skill{font:400 .8125rem var(--f-mono);padding:6px 10px;border-radius:8px;border:1px solid var(--line-strong);background:var(--surface);color:var(--fg);cursor:pointer;transition:all .2s}
+.skill{font:400 .8125rem var(--f-mono);text-align:left;padding:6px 10px;border-radius:8px;border:1px solid var(--line-strong);background:var(--surface);color:var(--fg);cursor:pointer;transition:all .2s}
 .skill:hover,.skill.on{border-color:var(--accent);color:var(--accent-text);background:var(--accent-soft)}
 .used-in{margin:22px 0 0;padding:12px 16px;border:1px dashed var(--line-strong);border-radius:12px;font-family:var(--f-mono);font-size:.8125rem;color:var(--muted);min-height:48px}
 .used-in .k3{color:var(--accent-text)}
@@ -359,9 +377,9 @@ footer{border-top:1px solid var(--line);padding-block:28px 40px}
   <canvas id="field" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
     <div>
-      <p class="status rise" style="--d:0"><span class="dot pulse"></span>Open to Summer 2027 SWE internships</p>
+      <p class="status rise" style="--d:0"><span class="dot pulse"></span>Open to 2027 SWE &amp; embedded internships and co-ops</p>
       <h1 class="rise" style="--d:1"><span class="ln">Syed</span><span class="ln gold">Rizwan Uddin</span></h1>
-      <p class="lede rise" style="--d:2">Software engineer building <em>backend</em> and <em>AI</em> systems: matching engines, ingestion pipelines, and sandboxed code execution.</p>
+      <p class="lede rise" style="--d:2">Software engineer building <em>backend</em>, <em>AI</em> and <em>embedded</em> systems: matching engines, translation pipelines, and C++ drone telemetry.</p>
       <p class="meta rise" style="--d:3">B.S. Computer Science &amp; Linguistics · San José State University · May 2028</p>
       <div class="cta rise" style="--d:4">
         <a class="btn btn-primary" href="#projects">See my work <span class="arrow">→</span></a>
@@ -377,10 +395,10 @@ footer{border-top:1px solid var(--line);padding-block:28px 40px}
         <span class="l" style="--i:0"><span class="tp">{</span></span>
         <span class="l" style="--i:1">  <span class="tk">"name"</span><span class="tp">:</span> <span class="ts">"Syed Rizwan Uddin"</span><span class="tp">,</span></span>
         <span class="l" style="--i:2">  <span class="tk">"school"</span><span class="tp">:</span> <span class="ts">"San José State University"</span><span class="tp">,</span></span>
-        <span class="l" style="--i:3">  <span class="tk">"degree"</span><span class="tp">:</span> <span class="ts">"B.S. CS &amp; Linguistics"</span><span class="tp">,</span></span>
-        <span class="l" style="--i:4">  <span class="tk">"graduating"</span><span class="tp">:</span> <span class="ts">"May 2028"</span><span class="tp">,</span></span>
-        <span class="l" style="--i:5">  <span class="tk">"focus"</span><span class="tp">: [</span><span class="ts">"backend"</span><span class="tp">,</span> <span class="ts">"full-stack"</span><span class="tp">,</span> <span class="ts">"AI"</span><span class="tp">],</span></span>
-        <span class="l" style="--i:6">  <span class="tk">"seeking"</span><span class="tp">:</span> <span class="ts">"SWE intern, Summer 2027"</span><span class="tp">,</span></span>
+        <span class="l" style="--i:3">  <span class="tk">"graduating"</span><span class="tp">:</span> <span class="ts">"May 2028"</span><span class="tp">,</span></span>
+        <span class="l" style="--i:4">  <span class="tk">"focus"</span><span class="tp">: [</span><span class="ts">"backend"</span><span class="tp">,</span> <span class="ts">"embedded"</span><span class="tp">,</span> <span class="ts">"AI"</span><span class="tp">],</span></span>
+        <span class="l" style="--i:5">  <span class="tk">"latest"</span><span class="tp">:</span> <span class="ts">"SWE intern @ LunarTech AI"</span><span class="tp">,</span></span>
+        <span class="l" style="--i:6">  <span class="tk">"seeking"</span><span class="tp">:</span> <span class="ts">"SWE / embedded intern, 2027"</span><span class="tp">,</span></span>
         <span class="l" style="--i:7">  <span class="tk">"status"</span><span class="tp">:</span> <span class="tb">"ready"</span></span>
         <span class="l" style="--i:8"><span class="tp">}</span></span>
       </div>
@@ -403,17 +421,18 @@ footer{border-top:1px solid var(--line);padding-block:28px 40px}
           <h2>I like the parts of a system that make it trustworthy.</h2>
         </div>
         <div class="about-text reveal">
-          <p>I study <strong>Computer Science and Linguistics at San José State</strong>. Most of what I build is backend: APIs, databases, job queues, and the glue that turns them into one working system.</p>
-          <p>The part I care about most is the unglamorous part: <strong>validating input, isolating failures, writing tests</strong>, and making output something a person can check. Building DriftWatch taught me that a clever scoring formula can't make up for bad input data, and I've carried that into everything since.</p>
-          <p>Linguistics is the other half of my degree, which is part of why I keep ending up in language and AI work, from semantic search with sentence embeddings to a Japanese tutor agent that handles all three writing systems.</p>
+          <p>I study <strong>Computer Science and Linguistics at San José State</strong>. Most of what I build is backend: APIs, databases, job queues, and the glue that turns them into one working system. Lately I've gone lower in the stack too, writing <strong>C++17 telemetry software</strong> for a quadcopter.</p>
+          <p>The part I care about most is the unglamorous part: <strong>validating input, isolating failures, writing tests</strong>, and making output something a person can check. Most of my best bugs were found that way: off-topic articles behind DriftWatch's outliers, tables silently skipped in a translated medical review, and a GPS that kept dropping to zero satellites.</p>
+          <p>Linguistics is the other half of my degree, and it keeps showing up in my work: fixing right-to-left punctuation for Urdu and Arabic at LunarTech AI, reviewing translations with native speakers, and building a Japanese tutor agent that handles all three writing systems.</p>
         </div>
       </div>
       <ul class="facts reveal" aria-label="Quick facts">
         <li><span class="fk">Based in</span><span class="fv">San José, CA</span></li>
         <li><span class="fk">School</span><span class="fv">San José State University</span></li>
         <li><span class="fk">Graduating</span><span class="fv">May 2028 · GPA 3.50</span></li>
-        <li><span class="fk">Looking for</span><span class="fv">SWE internship, Summer 2027</span></li>
-        <li><span class="fk">Interests</span><span class="fv">Backend · Full-stack · Platform · AI</span></li>
+        <li><span class="fk">Latest role</span><span class="fv">SWE Intern, LunarTech AI</span></li>
+        <li><span class="fk">Looking for</span><span class="fv">SWE &amp; embedded internships, co-ops</span></li>
+        <li><span class="fk">Interests</span><span class="fv">Backend · Embedded · Platform · AI</span></li>
       </ul>
     </div>
   </section>
@@ -428,32 +447,75 @@ footer{border-top:1px solid var(--line);padding-block:28px 40px}
 
       <div class="cases">
 
-        <!-- DriftWatch -->
-        <article class="case" id="driftwatch">
+        <!-- Drone -->
+        <article class="case" id="drone">
           <div class="case-text reveal">
-            <div class="case-meta"><span class="pill gold">Featured</span><span>Aug – Sep 2026</span><span>Solo</span></div>
-            <h3>DriftWatch</h3>
-            <p class="case-sub">Semantic narrative-drift detection platform</p>
-            <p>A full-stack tool for investigating how the public story around a company changes over time. You pick a subject, a topic and a date range. DriftWatch pulls historical news, throws out irrelevant articles, scores how the meaning shifts, and plots a timeline where every point links back to its source.</p>
+            <div class="case-meta"><span class="pill gold">Newest</span><span class="pill wip">In progress</span><span>Nov 2026 – Present</span></div>
+            <h3>Autonomous Drone Companion</h3>
+            <p class="case-sub">C++17 telemetry and a Raspberry Pi companion computer</p>
+            <p>A 5-inch, 3S autonomous quadcopter (MicoAir405v2 flight controller, ArduCopter 4.7.2) with a Raspberry Pi Zero 2 W companion computer. The Pi streams live MAVLink data to QGroundControl and to my C++17 telemetry software, which I test in ArduPilot SITL before it touches real hardware.</p>
             <dl class="stats">
-              <div><dt>17</dt><dd>automated tests</dd></div>
-              <div><dt>9</dt><dd>HTTP routes</dd></div>
-              <div><dt>4</dt><dd>Docker services</dd></div>
-              <div><dt>≤12</dt><dd>search windows per range</dd></div>
+              <div><dt>~2 s</dt><dd>failsafe on link drop</dd></div>
+              <div><dt>2</dt><dd>swappable links (UDP, serial)</dd></div>
+              <div><dt>250</dt><dd>reader's MAVLink system ID</dd></div>
+              <div><dt>4.7.2</dt><dd>ArduCopter firmware</dd></div>
             </dl>
             <p class="label">What I built</p>
             <ul class="built">
-              <li>A 3-stage relevance gate: subject or alias match, optional official-domain filter, and a semantic threshold on 384-dimensional embeddings.</li>
-              <li>Two separate scores using pgvector cosine distance: drift from the tracked topic, and shift from a frozen baseline of the earliest 5 relevant articles.</li>
-              <li>Representative sampling: a 10-year range uses at most 12 windows instead of about 120 monthly ones (up to 90% fewer planned requests), with retries and per-window failure isolation.</li>
-              <li>A Docker Compose stack of API, worker, PostgreSQL with pgvector, and Redis/RQ, plus 5 versioned migrations.</li>
+              <li>A C++17 MAVLink telemetry reader (CMake) with 2 swappable links, UDP and serial, that reads heartbeat and position from ArduPilot SITL and the real flight controller.</li>
+              <li>A Pi Zero 2 W companion that relays MAVLink between the flight controller (USB, 921600 baud) and QGroundControl over Wi-Fi for Xbox-controller flight, running mavlink-router (compiled from source) as an auto-restarting systemd service.</li>
+              <li>The reader runs on the Pi through mavlink-router with its own MAVLink system ID (250), so the ground station's failsafe keeps working. The Pi code is built inside Docker.</li>
+              <li>Verified that radio and ground-station failsafes trigger in about 2 seconds on a link drop, after tracing a missing I2C compass to firmware builds that leave it out on 1MB boards and upgrading to ArduCopter 4.7.2.</li>
+            </ul>
+            <div class="log" role="group" aria-label="Hardest bug">
+              <div class="log-head"><span>hardest_bug.log</span><span>drone-companion</span></div>
+              <div class="log-row"><span class="lv e">SYMPTOM</span><span class="msg">The GPS dropped to 0 satellites.</span></div>
+              <div class="log-row"><span class="lv w">DIAGNOSE</span><span class="msg">Added diagnostics to the telemetry reader: GPS_RAW, SYS_STATUS sensor health, compass, and flight controller messages.</span></div>
+              <div class="log-row"><span class="lv f">FINDING</span><span class="msg">The flight controller kept losing and re-detecting the GPS, which pointed to a likely cracked UART solder joint.</span></div>
+            </div>
+            <ul class="chips" aria-label="Tech stack"><li>C++17</li><li>Python</li><li>CMake</li><li>MAVLink2</li><li>ArduCopter 4.7.2</li><li>ArduPilot SITL</li><li>mavlink-router</li><li>systemd</li><li>Raspberry Pi</li><li>Docker</li></ul>
+            <div class="case-links"><a class="btn btn-sm ext" href="https://github.com/rizwanuddin/drone-companion" target="_blank" rel="noopener">View code </a></div>
+          </div>
+          <div class="case-vis reveal">
+            <div class="panel spot">
+              <div class="panel-head"><span>mavlink-router · link monitor</span><span class="live"><span class="dot pulse"></span>simulated</span></div>
+              <div class="tele" aria-hidden="true">
+                <div><span class="tl">mode</span><span class="tv" id="dnMode">LOITER</span></div>
+                <div><span class="tl">gps sats</span><span class="tv" id="dnSats">14</span></div>
+                <div><span class="tl">gcs link</span><span class="tv" id="dnLink">OK</span></div>
+                <div><span class="tl">last beat</span><span class="tv" id="dnGap">0.4 s</span></div>
+              </div>
+              <canvas class="sim-canvas wide" id="dnCanvas" role="img" aria-label="Simulation: heartbeats from the flight controller reach the ground station once a second. When the Wi-Fi link drops, the ground-station failsafe switches the drone to RTL after about 2 seconds, while the onboard telemetry reader keeps receiving data."></canvas>
+              <div class="panel-foot"><span>link drop → failsafe in ~2 s</span><span>onboard reader keeps streaming</span></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- DriftWatch -->
+        <article class="case" id="driftwatch">
+          <div class="case-text reveal">
+            <div class="case-meta"><span class="pill gold">Featured</span><span>Aug – Sep 2026</span></div>
+            <h3>DriftWatch</h3>
+            <p class="case-sub">Semantic Narrative-Drift Detection Platform</p>
+            <p>A full-stack NLP tool for investigating how the public story around a company changes over time. You pick a subject, a topic and a date range. DriftWatch pulls historical news, throws out irrelevant articles, scores how the meaning shifts, and plots a timeline where every point links back to its source. It was validated on 370+ real articles pulled live through SerpApi.</p>
+            <dl class="stats">
+              <div><dt>370+</dt><dd>real articles validated</dd></div>
+              <div><dt>17</dt><dd>automated tests</dd></div>
+              <div><dt>9</dt><dd>HTTP routes</dd></div>
+              <div><dt>4</dt><dd>Docker services</dd></div>
+            </dl>
+            <p class="label">How it works</p>
+            <ul class="built">
+              <li>A 3-stage relevance gate: entity match, official-domain filter, and a semantic threshold on 384-dimensional embeddings.</li>
+              <li>Two separate scores using Sentence Transformers and pgvector cosine distance: drift from the tracked topic, and shift from a frozen baseline of the earliest relevant articles.</li>
+              <li>Representative sampling: a 10-year range uses at most 12 periods instead of about 120 monthly windows (up to 90% fewer planned requests), with up to 8 accepted articles per window.</li>
+              <li>4 services (API, worker, PostgreSQL with pgvector, Redis) in Docker Compose with health checks, plus 5 versioned database migrations.</li>
             </ul>
             <div class="log" role="group" aria-label="Hardest bug">
               <div class="log-head"><span>hardest_bug.log</span><span>driftwatch</span></div>
               <div class="log-row"><span class="lv e">SYMPTOM</span><span class="msg">The chart showed drift outliers the math couldn't explain.</span></div>
-              <div class="log-row"><span class="lv w">CAUSE</span><span class="msg">I opened the source links behind those points. Some articles matched query words but weren't about the company at all: valid distances, invalid input.</span></div>
+              <div class="log-row"><span class="lv w">CAUSE</span><span class="msg">Tracing the source links behind those points showed off-topic articles: they matched query words but weren't about the company at all.</span></div>
               <div class="log-row"><span class="lv f">FIX</span><span class="msg">Added the relevance gate so off-topic articles are rejected before they ever reach scoring.</span></div>
-              <div class="log-row"><span class="lv i">LESSON</span><span class="msg">A scoring formula can't make up for bad input data.</span></div>
             </div>
             <p class="note">DriftWatch measures semantic change. It doesn't decide whether anyone lied; the scores point to evidence and the user makes the call.</p>
             <ul class="chips" aria-label="Tech stack"><li>Python</li><li>FastAPI</li><li>PostgreSQL</li><li>pgvector</li><li>Sentence Transformers</li><li>Redis/RQ</li><li>Docker Compose</li><li>Chart.js</li><li>Pytest</li></ul>
@@ -471,23 +533,30 @@ footer{border-top:1px solid var(--line);padding-block:28px 40px}
         <!-- Exchange -->
         <article class="case" id="exchange">
           <div class="case-text reveal">
-            <div class="case-meta"><span>Jul 2026</span><span>Solo</span></div>
-            <h3>Crypto Exchange</h3>
-            <p class="case-sub">Order-matching backend, built from scratch</p>
-            <p>An exchange backend with a custom matching engine behind a FastAPI REST API. Trades and order-book updates stream live to a browser frontend.</p>
+            <div class="case-meta"><span class="pill">Runs on AWS</span><span>Jul 2026</span></div>
+            <h3>Centralized Cryptocurrency Exchange</h3>
+            <p class="case-sub">Order-Matching Backend</p>
+            <p>An exchange backend built from scratch, with a custom matching engine behind 6 FastAPI REST endpoints. Trades and order-book updates stream live to a browser frontend, and a GitHub Actions pipeline redeploys it to AWS on every push.</p>
+            <dl class="stats">
+              <div><dt>6</dt><dd>REST endpoints</dd></div>
+              <div><dt>3+</dt><dd>isolated trading pairs</dd></div>
+              <div><dt>4</dt><dd>AWS services</dd></div>
+              <div><dt>6</dt><dd>backend layers</dd></div>
+            </dl>
             <p class="label">What I built</p>
             <ul class="built">
-              <li>A matching engine with price-time priority (best price first, then oldest order) that partially fills an order across multiple resting orders.</li>
-              <li>Transactional order handling with PostgreSQL row-level locking, so competing orders can't claim the same liquidity.</li>
-              <li>Per-symbol WebSocket channels that stream trades and book updates, with an isolated order book for each trading pair.</li>
-              <li>Separate layers for routes, services, the matching engine and repositories, with Pydantic validation (positive price and quantity) before anything reaches the database.</li>
+              <li>A matching engine with price-time priority (best price first, then oldest order) that partially fills an order against multiple counter-orders.</li>
+              <li>Transactional order handling with PostgreSQL row-level locking, so competing orders can't claim the same liquidity, across isolated order books for 3+ trading pairs.</li>
+              <li>3 kinds of live updates (order updates, trade executions, price changes) over per-symbol WebSocket channels, so clients only get the pairs they subscribe to.</li>
+              <li>6 layers (routes, services, matching engine, repositories, database, WebSocket) using the repository pattern, so the engine and services can be tested on their own.</li>
+              <li>Deployment on EC2, ECR, RDS and CloudWatch, with a GitHub Actions pipeline that redeploys on every push.</li>
             </ul>
             <div class="log" role="group" aria-label="Design problem">
               <div class="log-head"><span>design_note.log</span><span>exchange</span></div>
               <div class="log-row"><span class="lv e">RISK</span><span class="msg">Two incoming orders race for the same resting order, and both get filled.</span></div>
               <div class="log-row"><span class="lv f">FIX</span><span class="msg">Order handling runs in a transaction that locks the rows it matches against.</span></div>
             </div>
-            <ul class="chips" aria-label="Tech stack"><li>Python</li><li>FastAPI</li><li>PostgreSQL</li><li>SQLAlchemy</li><li>Pydantic</li><li>WebSocket</li><li>JavaScript</li></ul>
+            <ul class="chips" aria-label="Tech stack"><li>Python</li><li>FastAPI</li><li>PostgreSQL</li><li>SQLAlchemy</li><li>Pydantic</li><li>WebSocket</li><li>Docker</li><li>AWS (EC2, ECR, RDS, CloudWatch)</li><li>GitHub Actions</li></ul>
             <div class="case-links"><a class="btn btn-sm ext" href="https://github.com/rizwanuddin/Centralized-Cryptocurrency-Exchange" target="_blank" rel="noopener">View code </a></div>
           </div>
           <div class="case-vis reveal">
@@ -513,7 +582,7 @@ footer{border-top:1px solid var(--line);padding-block:28px 40px}
         <!-- NullStack -->
         <article class="case" id="nullstack">
           <div class="case-text reveal">
-            <div class="case-meta"><span>Mar 2026</span><span>Solo</span></div>
+            <div class="case-meta"><span>Mar 2026</span></div>
             <h3>NullStack</h3>
             <p class="case-sub">Self-hosted code execution platform</p>
             <p>Runs untrusted Python, SQL and Java in throwaway Docker containers, then gives automated code-review feedback from a local LLM. The whole platform comes up with one Docker Compose command.</p>
@@ -553,32 +622,34 @@ footer{border-top:1px solid var(--line);padding-block:28px 40px}
         <!-- MenuMind -->
         <article class="case" id="menumind">
           <div class="case-text reveal">
-            <div class="case-meta"><span class="pill wip">Rebuild in progress</span><span>Mar 2026 – now</span></div>
+            <div class="case-meta"><span class="pill wip">Rebuild in progress</span><span>Mar 2026</span></div>
             <h3>MenuMind</h3>
-            <p class="case-sub">Multi-tenant digital menu platform</p>
-            <p>Started as a RAG-based restaurant menu chatbot at HackHaywards 2026, where I owned the backend on a 2-person team and set our task split and schedule. I'm now rebuilding it solo as a platform where staff edit a private draft and publish it to a permanent QR-code URL, so changing a price never means reprinting a menu.</p>
+            <p class="case-sub">Multi-Tenant Digital Menu Management Platform</p>
+            <p>Started at HackHaywards 2026 as a RAG-based restaurant menu chatbot. On our 2-person team I owned the backend and led planning by splitting tasks and setting the schedule. I'm now rebuilding it solo as a platform where staff publish menu drafts to a permanent QR-code URL, so changing a price never means reprinting a menu.</p>
             <dl class="stats">
-              <div><dt>81%</dt><dd>test coverage</dd></div>
-              <div><dt>80%</dt><dd>coverage gate in CI command</dd></div>
-              <div><dt>0</dt><dd>Mypy or Ruff errors</dd></div>
+              <div><dt>19 h</dt><dd>hackathon build</dd></div>
+              <div><dt>81%</dt><dd>test coverage (80% gate)</dd></div>
+              <div><dt>0</dt><dd>lint or type errors in 12 files</dd></div>
               <div><dt>3 s</dt><dd>DB connect timeout</dd></div>
             </dl>
-            <p class="label">Built so far</p>
+            <p class="label">Hackathon version</p>
             <ul class="built">
-              <li>A modular FastAPI monolith on PostgreSQL, chosen over microservices because the features share relational data and nothing measured says they need splitting.</li>
-              <li>Health and readiness endpoints; readiness returns 503 when the database is unreachable.</li>
-              <li>Request middleware that assigns every request an ID and logs its duration as structured JSON.</li>
-              <li>Typed configuration, SQLAlchemy sessions and Alembic migrations, with Ruff, Mypy and Pytest checks behind an 80% coverage gate.</li>
+              <li>A Flask + Neo4j backend on 2 LLM APIs: Gemini parses an uploaded menu (PDF or image) into dish nodes, and Perplexity Sonar answers questions limited to dishes in the graph, blocking invented dishes and prices.</li>
+              <li>Per-route rate limiting with Flask-Limiter (5 uploads a minute, 200 requests a day) to protect the API budget.</li>
+            </ul>
+            <p class="label">Solo rebuild so far</p>
+            <ul class="built">
+              <li>A modular FastAPI monolith on PostgreSQL, chosen over microservices, with 2 health and readiness endpoints shipped first.</li>
+              <li>Typed configuration, SQLAlchemy, Alembic and PostgreSQL in Docker, behind an 80% Pytest coverage gate (currently 81%).</li>
+              <li>Ruff and Mypy with 0 lint errors and 0 type errors across 12 source files, plus request middleware that logs each request's ID and duration as structured JSON.</li>
             </ul>
             <div class="log" role="group" aria-label="Hardest bug">
               <div class="log-head"><span>hardest_bug.log</span><span>menumind</span></div>
-              <div class="log-row"><span class="lv e">SYMPTOM</span><span class="msg">With PostgreSQL down, the readiness check took about 6.5 seconds to return 503.</span></div>
+              <div class="log-row"><span class="lv e">SYMPTOM</span><span class="msg">With PostgreSQL down, the readiness check took about 6.54 seconds to return HTTP 503.</span></div>
               <div class="log-row"><span class="lv w">CAUSE</span><span class="msg">The database connection attempt had no tight timeout, so a failing check failed slowly.</span></div>
-              <div class="log-row"><span class="lv f">FIX</span><span class="msg">Added an explicit, configurable 3-second connection timeout. Benchmarking the final failure latency is next.</span></div>
-              <div class="log-row"><span class="lv i">LESSON</span><span class="msg">A health check has to fail fast, or a load balancer can't act on it.</span></div>
+              <div class="log-row"><span class="lv f">FIX</span><span class="msg">Added a configurable 3-second connection timeout so the check fails fast.</span></div>
             </div>
-            <p class="note">Next up: the relational schema and tenant-isolation tests, then authentication and AWS deployment.</p>
-            <ul class="chips" aria-label="Tech stack"><li>Python</li><li>FastAPI</li><li>PostgreSQL</li><li>SQLAlchemy</li><li>Alembic</li><li>Docker Compose</li><li>Pytest</li><li>Ruff</li><li>Mypy</li></ul>
+            <ul class="chips" aria-label="Tech stack"><li>Python</li><li>FastAPI</li><li>Flask</li><li>Neo4j</li><li>PostgreSQL</li><li>SQLAlchemy</li><li>Alembic</li><li>Docker Compose</li><li>Pytest</li><li>Ruff</li><li>Mypy</li></ul>
             <div class="case-links"><a class="btn btn-sm ext" href="https://github.com/rizwanuddin/MenuMind" target="_blank" rel="noopener">View code </a></div>
           </div>
           <div class="case-vis reveal">
@@ -617,19 +688,37 @@ footer{border-top:1px solid var(--line);padding-block:28px 40px}
       <div class="exp-grid">
         <div class="timeline reveal">
           <div class="job">
+            <div class="job-head"><h3>Software Engineering Intern</h3><span class="when">Mar – May 2026</span></div>
+            <p class="where">LunarTech AI · Remote · Babel, AI document translation platform</p>
+            <ul class="built">
+              <li>Capped concurrent translation jobs at 10 with a thread semaphore and sized workers from available RAM to prevent out-of-memory crashes; moved progress updates to an in-memory cache to avoid SQLite lock errors.</li>
+              <li>Built a 5-step overflow fallback for translated PDF text, with font floors of 0.75 for headers and 0.60 for body text.</li>
+            </ul>
+            <ol class="ladder" id="ladder" aria-label="Overflow fallback steps, tried in order">
+              <li>reflow</li><li>expand right</li><li>expand down</li><li>line spacing 1.05</li><li>scale down</li>
+            </ol>
+            <ul class="built">
+              <li>Fixed scrambled punctuation and math symbols in Word output for 2 right-to-left languages (Urdu, Arabic) by detecting RTL targets and injecting bidi properties into the DOCX paragraph XML.</li>
+              <li>Tested translated documents in 20 target languages, including a 17-page English-to-Russian medical review where block counts showed tables were being skipped (3 output bugs found).</li>
+              <li>Built edge-case test documents for Bangla and Urdu and ran reviews with native speakers, finding 4 kinds of bugs: cut-off words, lost font styling, dropped special characters and inconsistent term translations.</li>
+            </ul>
+          </div>
+          <div class="job">
             <div class="job-head"><h3>AI Agent Development Intern</h3><span class="when">Aug – Nov 2025</span></div>
-            <p class="where">NeuralSeek · Remote · Certification program</p>
+            <p class="where">NeuralSeek · Remote</p>
             <ul class="built">
               <li>Set up LLM-powered agents with RAG pipelines and 3+ tool-calling workflows (search, retrieval, API calls) to answer natural-language questions over 3+ data sources.</li>
               <li>Shipped a Japanese-language tutor agent covering all 3 writing systems in under a week.</li>
+              <li>Evaluated agent performance with intent-confidence scoring across 5+ demos.</li>
             </ul>
           </div>
           <div class="job">
             <div class="job-head"><h3>Computational Bioinformatics Research</h3><span class="when">Mar 2025 – Jan 2026</span></div>
             <p class="where">San José State University · San José, CA</p>
             <ul class="built">
-              <li>Built a Python/pandas pipeline in Jupyter that validates riboswitch CSV data and flags the highest- and lowest-complex-energy interactions across 20+ negative viral targets.</li>
-              <li>Analyzed 500+ synthetic riboswitch sequences (1,000+ data points) in a Linux VM with ViennaRNA energy and k-mer features, comparing functional and defective Coxsackievirus B3 designs to support ML-based prediction.</li>
+              <li>Built a Python/pandas pipeline in Jupyter that validates riboswitch CSVs and flags the highest- and lowest-complex-energy interactions across 20+ negative viral targets.</li>
+              <li>Analyzed 500+ synthetic riboswitch sequences (1,000+ data points) in a Linux VM with ViennaRNA, k-mer features, regression and forna structure plots to compare functional and defective Coxsackie B3 designs.</li>
+              <li>Ran regression on 2 free-energy measures (riboswitch and target) to explore how they relate to successful and failed binding, and built k-mer features to support ML-based prediction.</li>
             </ul>
           </div>
         </div>
@@ -641,7 +730,10 @@ footer{border-top:1px solid var(--line);padding-block:28px 40px}
             <div><dt>Graduating</dt><dd>May 2028</dd></div>
             <div><dt>GPA</dt><dd>3.50 / 4.00</dd></div>
           </dl>
+          <p class="label" style="margin-top:18px">Coursework</p>
           <ul class="chips" aria-label="Relevant coursework"><li>Data Structures &amp; Algorithms</li><li>Calculus II</li></ul>
+          <p class="label">Self-study</p>
+          <ul class="chips" aria-label="Self-study courses"><li>MIT 6.1810 Operating System Engineering</li><li>The Odin Project</li></ul>
         </aside>
       </div>
     </div>
@@ -656,44 +748,59 @@ footer{border-top:1px solid var(--line);padding-block:28px 40px}
       </div>
       <div class="skill-grid reveal" id="skillGrid">
         <div class="skill-group"><p class="label">Languages</p><div class="skill-chips">
-          <button class="skill" type="button" data-used="DriftWatch, Crypto Exchange, NullStack, MenuMind, SJSU research">Python</button>
+          <button class="skill" type="button" data-used="DriftWatch, Cryptocurrency Exchange, MenuMind, NullStack, drone tools, LunarTech AI, SJSU research">Python</button>
+          <button class="skill" type="button" data-used="Autonomous Drone Companion (C++17 MAVLink telemetry reader)">C++</button>
           <button class="skill" type="button" data-used="NullStack (runs Java submissions)">Java</button>
-          <button class="skill" type="button" data-used="DriftWatch dashboard, Crypto Exchange frontend">JavaScript</button>
-          <button class="skill" type="button" data-used="DriftWatch, Crypto Exchange, MenuMind, NullStack">SQL</button>
-          <button class="skill" type="button" data-used="">C++</button>
+          <button class="skill" type="button" data-used="DriftWatch dashboard, Cryptocurrency Exchange frontend">JavaScript</button>
+          <button class="skill" type="button" data-used="DriftWatch, Cryptocurrency Exchange, MenuMind, NullStack">SQL</button>
         </div></div>
-        <div class="skill-group"><p class="label">Backend &amp; APIs</p><div class="skill-chips">
-          <button class="skill" type="button" data-used="DriftWatch, Crypto Exchange, MenuMind">FastAPI</button>
-          <button class="skill" type="button" data-used="NullStack">Flask</button>
-          <button class="skill" type="button" data-used="Crypto Exchange, NullStack, DriftWatch, MenuMind">REST APIs</button>
-          <button class="skill" type="button" data-used="Crypto Exchange (per-symbol channels)">WebSockets</button>
-          <button class="skill" type="button" data-used="Crypto Exchange, DriftWatch, MenuMind">Pydantic</button>
-          <button class="skill" type="button" data-used="Crypto Exchange, MenuMind">SQLAlchemy</button>
+        <div class="skill-group"><p class="label">Systems &amp; backend</p><div class="skill-chips">
+          <button class="skill" type="button" data-used="Cryptocurrency Exchange (6 endpoints), DriftWatch (9 routes), MenuMind, NullStack">REST APIs</button>
+          <button class="skill" type="button" data-used="DriftWatch, Cryptocurrency Exchange, MenuMind rebuild">FastAPI</button>
+          <button class="skill" type="button" data-used="NullStack, MenuMind (hackathon version)">Flask</button>
+          <button class="skill" type="button" data-used="Cryptocurrency Exchange (request validation)">Pydantic</button>
+          <button class="skill" type="button" data-used="Cryptocurrency Exchange (per-symbol channels)">WebSocket</button>
+          <button class="skill" type="button" data-used="Cryptocurrency Exchange, MenuMind">SQLAlchemy</button>
           <button class="skill" type="button" data-used="MenuMind">Alembic</button>
-        </div></div>
-        <div class="skill-group"><p class="label">Data, infra &amp; quality</p><div class="skill-chips">
-          <button class="skill" type="button" data-used="DriftWatch, Crypto Exchange, MenuMind">PostgreSQL</button>
-          <button class="skill" type="button" data-used="DriftWatch (384-d embeddings, cosine distance)">pgvector</button>
-          <button class="skill" type="button" data-used="DriftWatch (queued persistence jobs)">Redis / RQ</button>
-          <button class="skill" type="button" data-used="NullStack, DriftWatch, MenuMind">Docker</button>
-          <button class="skill" type="button" data-used="NullStack, DriftWatch, MenuMind">Docker Compose</button>
-          <button class="skill" type="button" data-used="SJSU research (Linux VM)">Linux</button>
-          <button class="skill" type="button" data-used="Every project on this page">Git</button>
+          <button class="skill" type="button" data-used="DriftWatch, Cryptocurrency Exchange (row-level locking), MenuMind">PostgreSQL</button>
+          <button class="skill" type="button" data-used="LunarTech AI (fixed SQLite lock errors)">SQLite</button>
+          <button class="skill" type="button" data-used="MenuMind (hackathon dish graph)">Neo4j</button>
+          <button class="skill" type="button" data-used="LunarTech AI (thread semaphore capping jobs at 10)">Concurrency</button>
           <button class="skill" type="button" data-used="DriftWatch (17 tests), MenuMind (80% coverage gate)">Pytest</button>
-          <button class="skill" type="button" data-used="MenuMind">Ruff</button>
-          <button class="skill" type="button" data-used="MenuMind">Mypy</button>
+          <button class="skill" type="button" data-used="MenuMind (0 lint errors)">Ruff</button>
+          <button class="skill" type="button" data-used="MenuMind (0 type errors)">Mypy</button>
+        </div></div>
+        <div class="skill-group"><p class="label">Cloud &amp; DevOps</p><div class="skill-chips">
+          <button class="skill" type="button" data-used="Cryptocurrency Exchange (EC2, ECR, RDS, CloudWatch)">AWS</button>
+          <button class="skill" type="button" data-used="NullStack, DriftWatch, MenuMind, Cryptocurrency Exchange, drone (Pi builds)">Docker</button>
+          <button class="skill" type="button" data-used="NullStack, DriftWatch, MenuMind">Docker Compose</button>
+          <button class="skill" type="button" data-used="Cryptocurrency Exchange (redeploys on every push)">GitHub Actions</button>
+          <button class="skill" type="button" data-used="Every project on this page">Git</button>
+          <button class="skill" type="button" data-used="Drone companion (Raspberry Pi), SJSU research (Linux VM)">Linux</button>
         </div></div>
         <div class="skill-group"><p class="label">AI &amp; data</p><div class="skill-chips">
           <button class="skill" type="button" data-used="NeuralSeek internship, MenuMind (hackathon version)">RAG pipelines</button>
-          <button class="skill" type="button" data-used="NeuralSeek internship">LLM agents</button>
-          <button class="skill" type="button" data-used="DriftWatch (all-MiniLM-L6-v2)">Sentence Transformers</button>
-          <button class="skill" type="button" data-used="NullStack (Phi-3 Mini code review)">Ollama</button>
+          <button class="skill" type="button" data-used="">Prompt engineering</button>
+          <button class="skill" type="button" data-used="DriftWatch (384-dimensional embeddings)">Sentence Transformers</button>
+          <button class="skill" type="button" data-used="DriftWatch (cosine distance)">pgvector</button>
+          <button class="skill" type="button" data-used="DriftWatch (worker queue)">Redis / RQ</button>
           <button class="skill" type="button" data-used="SJSU research">pandas</button>
-          <button class="skill" type="button" data-used="">NumPy</button>
-          <button class="skill" type="button" data-used="SJSU research">Jupyter</button>
+        </div></div>
+        <div class="skill-group"><p class="label">Embedded &amp; robotics</p><div class="skill-chips">
+          <button class="skill" type="button" data-used="Autonomous Drone Companion (telemetry reader)">C++17</button>
+          <button class="skill" type="button" data-used="Autonomous Drone Companion">CMake</button>
+          <button class="skill" type="button" data-used="Autonomous Drone Companion (MAVLink2, UDP and serial links)">MAVLink</button>
+          <button class="skill" type="button" data-used="Autonomous Drone Companion (tests before real hardware)">ArduPilot SITL</button>
+          <button class="skill" type="button" data-used="Autonomous Drone Companion (Pi Zero 2 W companion computer)">Raspberry Pi</button>
+          <button class="skill" type="button" data-used="Autonomous Drone Companion (auto-restarting mavlink-router service)">systemd</button>
+        </div></div>
+        <div class="skill-group"><p class="label">Localization &amp; media</p><div class="skill-chips">
+          <button class="skill" type="button" data-used="LunarTech AI (RTL fixes for Urdu and Arabic, 20 target languages)">Internationalization (RTL, CJK, Unicode)</button>
+          <button class="skill" type="button" data-used="LunarTech AI (PDF overflow fallback, DOCX bidi fix)">PDF / DOCX (OOXML)</button>
+          <button class="skill" type="button" data-used="">FFmpeg</button>
         </div></div>
       </div>
-      <p class="used-in" id="usedIn" aria-live="polite"><span class="k3">Python</span> → DriftWatch, Crypto Exchange, NullStack, MenuMind, SJSU research</p>
+      <p class="used-in" id="usedIn" aria-live="polite"><span class="k3">Python</span> → DriftWatch, Cryptocurrency Exchange, MenuMind, NullStack, drone tools, LunarTech AI, SJSU research</p>
     </div>
   </section>
 
@@ -701,8 +808,8 @@ footer{border-top:1px solid var(--line);padding-block:28px 40px}
     <div class="wrap">
       <div class="contact spot reveal">
         <p class="eyebrow"><span class="verb">POST</span> /contact</p>
-        <h2 style="margin-top:14px">Hiring Summer 2027 interns? Let's talk.</h2>
-        <p>I'm looking for software engineering internships for Summer 2027 on backend, full-stack, platform or AI-adjacent teams. Email is the fastest way to reach me.</p>
+        <h2 style="margin-top:14px">Hiring interns or co-ops in 2027? Let's talk.</h2>
+        <p>I'm looking for software engineering and embedded software internships or co-ops in 2027, in any term, on backend, platform, embedded or AI-adjacent teams. Email is the fastest way to reach me.</p>
         <div class="email"><span id="emailText">syed.rizwanuddin@sjsu.edu</span><button class="btn btn-primary btn-sm" id="copyEmail" type="button">Copy</button></div>
         <div class="contact-links">
           <a class="btn btn-sm" href="mailto:syed.rizwanuddin@sjsu.edu">Open email app</a>
@@ -796,7 +903,7 @@ if ('IntersectionObserver' in window) {
 }
 
 /* ---------- ticker ---------- */
-var STACK = ['Python','FastAPI','PostgreSQL','pgvector','Redis / RQ','Docker Compose','Sentence Transformers','WebSockets','SQLAlchemy','Alembic','Flask','Ollama','Pytest','Java','JavaScript','C++','Linux','RAG pipelines'];
+var STACK = ['Python','C++17','FastAPI','PostgreSQL','pgvector','AWS','GitHub Actions','Docker Compose','MAVLink','ArduPilot SITL','Raspberry Pi','CMake','Sentence Transformers','WebSocket','SQLAlchemy','Neo4j','Redis / RQ','Pytest','Java','JavaScript','RTL / Unicode','RAG pipelines'];
 var tick = $('#ticker');
 var html = '';
 for (var r = 0; r < 2; r++) { STACK.forEach(function(s){ html += '<span' + (r ? ' aria-hidden="true"' : '') + '>' + s + '</span>'; }); }
@@ -1299,6 +1406,103 @@ var MONO = '"Geist Mono", ui-monospace, Menlo, Consolas, monospace';
   whenVisible(draftEl, start, stop);
 })();
 
+/* ---------- Drone: MAVLink link monitor simulation ---------- */
+(function(){
+  var c = $('#dnCanvas'); if (!c || !c.getContext) return;
+  var mEl = $('#dnMode'), sEl = $('#dnSats'), lEl = $('#dnLink'), gEl = $('#dnGap');
+  var CYC = 13, DROP = 6, BACK = 10.5, FS = DROP + 2, RESUME = BACK + 2, WIN = 10;
+  var W, H, ctx, t = 9.2, running = false, raf = 0, last = 0, sats = 14, nextSat = 0;
+  function cyc(x){ return ((x % CYC) + CYC) % CYC; }
+  function linkUp(x){ var k = cyc(x); return !(k >= DROP && k < BACK); }
+  function rtl(x){ var k = cyc(x); return k >= FS && k < RESUME; }
+  function lastHb(x){
+    for (var k = Math.floor(x - .15); k > x - 15; k--) { var ht = k + .15; if (ht <= x && linkUp(ht)) return ht; }
+    return x;
+  }
+  function size(){ var s = fitCanvas(c); W = s.w; H = s.h; ctx = s.ctx; }
+  function label(s, x, y, color, align){ ctx.fillStyle = color; ctx.textAlign = align || 'left'; ctx.fillText(s, x, y); }
+  function readouts(){
+    var up = linkUp(t), r = rtl(t), gap = t - lastHb(t);
+    mEl.textContent = r ? 'RTL' : 'LOITER'; mEl.className = 'tv' + (r ? ' warn' : '');
+    lEl.textContent = up ? 'OK' : 'LOST'; lEl.className = 'tv ' + (up ? 'good' : 'bad');
+    gEl.textContent = gap.toFixed(1) + ' s'; gEl.className = 'tv' + (gap >= 2 ? ' bad' : '');
+    sEl.textContent = sats;
+  }
+  function draw(){
+    var x0 = 14, x1 = W - 14, t0 = t - WIN;
+    function X(time){ return x0 + (time - t0) / WIN * (x1 - x0); }
+    var yA = H * .32, yB = H * .68, hA = 22, hB = 12, b, k;
+    ctx.clearRect(0, 0, W, H);
+    ctx.font = '500 10.5px ' + MONO; ctx.textBaseline = 'alphabetic';
+    label('FC heartbeat → ground station (Wi-Fi)', x0, yA - hA - 10, T.muted);
+    label('FC → onboard reader, sys 250', x0, yB - hB - 10, T.muted);
+    ctx.strokeStyle = T.line; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(x0, yA + .5); ctx.lineTo(x1, yA + .5); ctx.moveTo(x0, yB + .5); ctx.lineTo(x1, yB + .5); ctx.stroke();
+    // link-drop bands and failsafe markers
+    for (b = Math.floor(t0 / CYC) * CYC - CYC; b <= t; b += CYC) {
+      var ds = b + DROP, de = Math.min(b + BACK, t);
+      if (de > t0 && ds <= t) {
+        var xa = X(Math.max(ds, t0)), xb = X(de);
+        ctx.globalAlpha = .13; ctx.fillStyle = T.ask; ctx.fillRect(xa, yA - hA - 2, xb - xa, hA + 4); ctx.globalAlpha = 1;
+        if (xb - xa > 56) label('link lost', xa + 5, yA + 16, T.ask);
+      }
+      var fs = b + FS;
+      if (fs <= t && fs >= t0) {
+        var xf = X(fs);
+        ctx.strokeStyle = T.accent; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
+        ctx.beginPath(); ctx.moveTo(xf, yA - hA - 4); ctx.lineTo(xf, yB + 6); ctx.stroke(); ctx.setLineDash([]);
+        var right = xf > x1 - 120;
+        label('failsafe → RTL', right ? xf - 6 : xf + 6, (yA + yB) / 2 + 4, T['accent-text'], right ? 'right' : 'left');
+      }
+    }
+    // heartbeats, 1 Hz, only while the link is up
+    ctx.fillStyle = T.blue;
+    for (k = Math.floor(t0); k <= t; k++) {
+      var ht = k + .15;
+      if (ht < t0 || ht > t || !linkUp(ht)) continue;
+      ctx.fillRect(X(ht) - 1.5, yA - hA, 3, hA);
+    }
+    // onboard reader, 4 Hz, never interrupted
+    ctx.fillStyle = T.bid;
+    for (k = Math.floor(t0 * 4); k <= t * 4; k++) {
+      var bt = k / 4 + .05;
+      if (bt < t0 || bt > t) continue;
+      ctx.fillRect(X(bt) - 1, yB - hB, 2, hB);
+    }
+    // now line and axis
+    ctx.strokeStyle = T['line-strong']; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(x1 + .5, yA - hA - 6); ctx.lineTo(x1 + .5, yB + 6); ctx.stroke();
+    label('−10 s', x0, H - 12, T.faint);
+    label('now', x1, H - 12, T.faint, 'right');
+  }
+  function frame(now){
+    var dt = last ? Math.min(.1, (now - last) / 1000) : 0; last = now; t += dt;
+    if (now > nextSat) {
+      if (Math.random() < .45) sats = Math.max(12, Math.min(16, sats + (Math.random() < .5 ? -1 : 1)));
+      nextSat = now + 1500;
+    }
+    draw(); readouts();
+    if (running) raf = requestAnimationFrame(frame);
+  }
+  function start(){ if (RM || running) return; running = true; last = 0; raf = requestAnimationFrame(frame); }
+  function stop(){ running = false; cancelAnimationFrame(raf); }
+  size(); draw(); readouts();
+  if ('ResizeObserver' in window) new ResizeObserver(function(){ size(); draw(); }).observe(c);
+  themeFns.push(function(){ if (!running) draw(); });
+  whenVisible(c, start, stop);
+})();
+
+/* ---------- LunarTech: overflow fallback ladder ---------- */
+(function(){
+  var lad = $('#ladder'); if (!lad) return;
+  var items = $$('li', lad), i = -1, timer = 0;
+  function paint(){ items.forEach(function(li, k){ li.className = k === i ? 'on' : (k < i ? 'done' : ''); }); }
+  function step(){ i = i >= items.length ? -1 : i + 1; paint(); }
+  function start(){ if (RM || timer) return; timer = setInterval(step, 850); }
+  function stop(){ clearInterval(timer); timer = 0; }
+  whenVisible(lad, start, stop);
+})();
+
 /* ---------- pointer spotlight ---------- */
 $$('.spot').forEach(function(el){
   el.addEventListener('pointermove', function(e){
@@ -1314,7 +1518,7 @@ var skills = $$('.skill');
 function showSkill(b){
   skills.forEach(function(x){ x.classList.toggle('on', x === b); });
   var u = b.getAttribute('data-used');
-  usedOut.innerHTML = '<span class="k3">' + b.textContent + '</span> → ' + (u ? u : 'not featured in a project on this page yet');
+  usedOut.innerHTML = '<span class="k3">' + b.textContent + '</span> → ' + (u ? u : 'on my resume, not shown in a project here yet');
 }
 skills.forEach(function(b){
   b.addEventListener('mouseenter', function(){ showSkill(b); });
